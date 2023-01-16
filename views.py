@@ -9,14 +9,15 @@ def index():
 
 @app.route('/watermark', methods=['POST'])
 def watermark():
-    if 'image' not in request.files:
-        return 'No image file uploaded'
+    if 'image' not in request.files or 'text' not in request.form:
+        return 'No image or text file uploaded'
         
     image = request.files['image']
+    text = request.form.get('text', 'Watermarked')
     image = Image.open(image)
     draw = ImageDraw.Draw(image)
     font = ImageFont.truetype('arial/arial.ttf', 36)
-    text = "Watermarked"
+    #text = "Watermarked"
     textwidth, textheight = draw.textsize(text, font)
     image_width, image_height = image.size
     x = (image_width - textwidth) / 2
@@ -33,15 +34,17 @@ def watermark_image():
     if 'image' not in request.files:
         return 'No image file uploaded'
     image = request.files['image']
+    watermark_image = request.files['watermark_image']
     image = Image.open(image)
-    watermark = Image.open("water_mark.png")
-    watermark = watermark.convert(image.mode)
+    
+    watermark_image = Image.open(watermark_image)
+    watermark_image = watermark_image.convert(image.mode)
 
     image_width, image_height = image.size
-    watermark = watermark.resize((int(image_width/5), int(image_height/5)))
-    x = int((image_width - watermark.width) / 2)
-    y = int((image_height - watermark.height) / 2)
-    image.alpha_composite(watermark, (x, y))
+    watermark_image = watermark_image.resize((int(image_width/5), int(image_height/5)))
+    x = int((image_width - watermark_image.width) / 2)
+    y = int((image_height - watermark_image.height) / 2)
+    image.alpha_composite(watermark_image, (x, y))
     image = image.convert("RGB")
     image.save('watermarked.jpg')
     print('Image watermarked and saved as "watermarked.jpg"')
