@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Image Watermarker</title>
+  </head>
+  <body>
+    <h1>Upload an image to watermark</h1>
+    <form action="/watermark-image" method="post" enctype="multipart/form-data">
+      <input type="file" name="image">
+      <input type="submit" value="Watermark">
+    </form>
+    <form action="{{ url_for('download_watermarked_image') }}" method="get">
+        <button type="submit">Download Watermarked Image</button>
+      </form>
+      
+  </body>
+</html>
