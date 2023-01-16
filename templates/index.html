@@ -2,26 +2,36 @@
 <html>
   <head>
     <title>Image Watermarker</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   </head>
   <body>
-    <h1>Upload an image to watermark</h1>
-    <form action="/watermark" method="post" enctype="multipart/form-data">
-      <input type="file" name="image">
-      <input type="text" name="text">
-      <input type="submit" value="Watermark">
-    </form>
-    <form action="{{ url_for('download_watermarked_image') }}" method="get">
-        <button type="submit">Download Watermarked Image</button>
+    <div class="container">
+      <h1 class="text-center m-3">Upload an image and type a text to watermark on image</h1>
+      <form action="/watermark" method="post" enctype="multipart/form-data" class="form-inline justify-content-center">
+        <div class="form-group m-3">
+          <input type="file" name="image" class="form-control">
+        </div>
+        <div class="form-group m-3">
+          <input type="text" name="text" class="form-control">
+        </div>
+        <input type="submit" value="Watermark" class="btn btn-primary m-3">
       </form>
-
-      <form action="/watermark-image" method="post" enctype="multipart/form-data">
-        <input type="file" name="image">
-        <input type="file" name="watermark_image">
-        <input type="submit" value="Watermark Image">
+      <form action="{{ url_for('download_watermarked_image') }}" method="get" class="text-center">
+        <button type="submit" class="btn btn-success m-3">Download Watermarked Image</button>
       </form>
-      <form action="{{ url_for('download_watermarked_image') }}" method="get">
-          <button type="submit">Download Watermarked Image</button>
+      <h1 class="text-center m-3">Upload an image and a logo to watermark on image</h1>
+      <form action="/watermark-image" method="post" enctype="multipart/form-data" class="form-inline justify-content-center">
+        <div class="form-group m-3">
+          <input type="file" name="image" class="form-control">
+        </div>
+        <div class="form-group m-3">
+          <input type="file" name="watermark_image" class="form-control">
+        </div>
+        <input type="submit" value="Watermark Image" class="btn btn-primary m-3">
       </form>
-      
+      <form action="{{ url_for('download_watermarked_image') }}" method="get" class="text-center">
+        <button type="submit" class="btn btn-success m-3">Download Watermarked Image</button>
+      </form>
+    </div>
   </body>
 </html>
